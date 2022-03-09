@@ -1,0 +1,199 @@
+namespace _03.PriorityQueue
+{
+    using System;
+    using System.Collections.Generic;
+
+    public class PriorityQueue<T> : IAbstractHeap<T>
+        where T : IComparable<T>
+    {
+        private List<T> heap;
+
+        public PriorityQueue()
+        {
+            heap = new List<T>();
+        }
+
+        public int Size { get { return heap.Count; } }
+
+        public T Peek()
+        {
+            return heap[0];
+        }
+
+        public T Dequeue()
+        {
+            // save top
+            // swap top with last
+            // heapify down
+            T top = heap[0];
+            heap[0] = heap[heap.Count - 1];
+            heap.RemoveAt(heap.Count - 1);
+
+            HeapifyDown(0);
+
+            return top;
+        }
+
+        private void HeapifyDown(int index)
+        {
+            int leftChildIndex = index * 2 + 1;
+            int rightChildIndex = index * 2 + 2;
+            int maxChildIndex = leftChildIndex;
+
+            if (leftChildIndex >= heap.Count) return;
+
+            if ((rightChildIndex < heap.Count) && heap[leftChildIndex].CompareTo(heap[rightChildIndex]) < 0)
+                maxChildIndex = rightChildIndex;
+
+            if (heap[index].CompareTo(heap[maxChildIndex]) < 0)
+            {
+                T temp = heap[index];
+                heap[index] = heap[maxChildIndex];
+                heap[maxChildIndex] = temp;
+                HeapifyDown(maxChildIndex);
+            }
+        }
+
+        public void Add(T element)
+        {
+            heap.Add(element);
+            Heapify(heap.Count - 1);
+        }
+
+        private void Heapify(int index)
+        {
+            if (index == 0) return;
+
+            int parentIndex = (index - 1) / 2;
+
+            if (heap[index].CompareTo(heap[parentIndex]) > 0)
+            {
+                T temp = heap[index];
+                heap[index] = heap[parentIndex];
+                heap[parentIndex] = temp;
+                Heapify(parentIndex);
+            }
+
+        }
+    }
+}
+
+Binary Search Treee
+
+namespace _04.BinarySearchTree
+{
+    using System;
+
+    public class BinarySearchTree<T> : IAbstractBinarySearchTree<T>
+        where T : IComparable<T>
+    {
+        public BinarySearchTree()
+        {
+        }
+
+        public BinarySearchTree(Node<T> root)
+        {
+            Root = root;
+            LeftChild = root.LeftChild;
+            RightChild = root.RightChild;
+        }
+
+        public Node<T> Root { get; private set; }
+
+        public Node<T> LeftChild { get; private set; }
+
+        public Node<T> RightChild { get; private set; }
+
+        public T Value => this.Root.Value;
+
+
+        // check if value is bigger or smaller than root
+        // go left or right accordingly
+        // repeat for child element
+        // find the first null child element and put the new node there
+        public void Insert(T value)
+        {
+            Insert(value, this.Root);
+        }
+
+        public void Insert(T value, Node<T> node)
+        {
+            if (node == null)
+            {
+                node = new Node<T>(value, null, null);
+                Root = node;
+                return;
+            }
+
+            if (node.Value.CompareTo(value) > 0)
+            {
+                if (node.LeftChild == null)
+                {
+                    node.LeftChild = new Node<T>(value, null, null);
+                    return;
+                }
+                Insert(value, node.LeftChild);
+            }
+            else
+            {
+                if (node.RightChild == null)
+                {
+                    node.RightChild = new Node<T>(value, null, null);
+                    return;
+                }
+
+                Insert(value, node.RightChild);
+            }
+        }
+        public bool Contains(T value)
+        {
+            return Contains(value, this.Root);
+        }
+        public bool Contains(T value, Node<T> node)
+        {
+            if (node == null)
+            {
+                return false;
+            }
+            if (node.Value.CompareTo(value) == 0)
+            {
+                return true;
+            }
+
+            if (node.Value.CompareTo(value) > 0)
+            {
+                return Contains(value, node.LeftChild);
+            }
+            else
+            {
+                return Contains(value, node.RightChild);
+            }
+
+        }
+        public IAbstractBinarySearchTree<T> Search(T value)
+        {
+            return Search(value, this.Root);
+        }
+        public IAbstractBinarySearchTree<T> Search(T value, Node<T> node)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+            if (node.Value.CompareTo(value) == 0)
+            {
+                return new BinarySearchTree<T>(node);
+            }
+
+            if (node.Value.CompareTo(value) > 0)
+            {
+                return Search(value, node.LeftChild);
+            }
+            else
+            {
+                return Search(value, node.RightChild);
+            }
+
+        }
+    }
+}

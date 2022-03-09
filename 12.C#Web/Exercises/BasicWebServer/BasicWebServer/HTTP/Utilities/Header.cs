@@ -1,0 +1,23 @@
+﻿using BasicWebServer.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BasicWebServer.HTTP.Utilities
+{
+    public class Header
+    {
+        public Header(string name, string value)
+        {
+            Guard.AgainstNull(name, nameof(name));
+            Guard.AgainstNull(value, nameof(value));
+            this.Name= name;
+            this.Value= value;
+        }
+
+        public string Name { get; init; }
+        public string Value { get; set; }
+    }
+}

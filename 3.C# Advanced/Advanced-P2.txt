@@ -1,0 +1,93 @@
+Writing a matrix:
+
+int size = int.Parse(Console.ReadLine());
+char[,] matrix = new char[size,size];
+
+for (int row = 0; row < size; row++)
+{
+        string input = Console.ReadLine();  
+
+        for (int col = 0; col < size; col++)
+        {
+             matrix[row, col] = input[col];
+
+                    if (matrix[row,col] == 'S')
+                    {
+                        startingCol = col;
+                        startingRow = row;
+                    }
+                    else if (matrix[row, col] == 'O' && count == 0)
+                    {
+                        pillarCol = col;
+                        pillarRow = row;
+                    }
+                    else if (matrix[row, col] == 'O')
+                    {
+                        pillar2Col = col;
+                        pillar2Row = row;
+                    }
+         }
+ }
+
+
+
+
+
+Readding a matrix: 
+
+//for (int row = 0; row < size; row++)
+//{
+//   for (int col = 0; col < size; col++)
+//   {
+//        Console.Write(matrix[row, col]);
+//   }
+//
+//    Console.WriteLine();
+//}
+
+
+
+InTarget method:
+
+private static bool InTarget(int targetRow, int targetCol, int size)
+{
+   if (targetRow >= 0 && targetRow < size && targetCol >= 0 && targetCol < size)
+   {
+     return true;
+   }
+
+   return false;
+ }
+
+
+
+Movin methods:
+
+        private static int Col(int currCol,string command)
+        {
+            if (command == "left")
+            {
+                return currCol - 1;
+            }
+            else if (command == "right")
+            {
+                return currCol + 1;
+            }
+
+            return currCol;
+        }
+
+        private static int Row(int currRow, string command)
+        {
+            if (command == "up")
+            {
+                return currRow - 1;
+            }
+            else if (command == "down")
+            {
+                return currRow + 1;
+            }
+
+            return currRow;
+        }
+

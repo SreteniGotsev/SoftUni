@@ -1,0 +1,39 @@
+First exersise
+
+// getting and element form the DOM tree
+
+let variable = document.getElementById('something')
+let array = document.getElementsByClassName(something)
+
+let variable = document.querySelector(); - '#' for id, '.' for class
+let array = document.querySelectorAll(); 
+
+//Adding an event
+
+variable.addEventListerner('click', (e) => 
+{
+  e.preventDefault() // if the page refreshes
+  let lectureNameElement = document.querySelector('input[name="lecture-name"]') //selecting by [] with querySelector
+})
+
+
+//adding element to the DOM tree - !!! in separate function
+
+
+let variable = document.createElement('li')
+variable.classList.add('name') - // adding a class to the element
+let heading = document.createElement('h4')
+heading.textContent
+
+variable.appendChild(heading) // appending element
+
+Third Exercise
+// create a document'test'
+//in the original document type 'npm init - y'
+//then instal chai mocha 'npm i chai mocha'
+// config the debugging 
+
+// it(should , () => {
+expect().to.be.equel()
+expect().to.throw
+})
